@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
-import initialContacts from 'data/contacts.json';
 import Form from 'components/Form';
 import Filter from 'components/Filter';
 import ContactList from 'components/ContactList';
@@ -8,9 +7,25 @@ import { Container, Phonebook, Contacts, Empty } from './App.styled';
 
 export default class App extends Component {
   state = {
-    contacts: initialContacts,
+    contacts: [],
     filter: '',
   };
+
+  componentDidMount() {
+    const parsedContacts = JSON.parse(localStorage.getItem('contacts'));
+
+    if (parsedContacts) {
+      this.setState({ contacts: parsedContacts });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { contacts } = this.state;
+
+    if (contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(contacts));
+    }
+  }
 
   setContact = data => {
     const { contacts } = this.state;

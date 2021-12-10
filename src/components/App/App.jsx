@@ -49,7 +49,7 @@ export default class App extends Component {
     this.setState({ filter: event.currentTarget.value });
   };
 
-  getContact = () => {
+  getVisibleContacts = () => {
     const { filter, contacts } = this.state;
     const normalizedFilter = filter.toLowerCase();
 
@@ -67,8 +67,8 @@ export default class App extends Component {
 
   render() {
     const { filter, contacts } = this.state;
-    const { setContact, changeFilter, getContact } = this;
-    const visibleContact = getContact();
+    const { setContact, changeFilter, getVisibleContacts } = this;
+    const visibleContact = getVisibleContacts();
 
     return (
       <Container>
